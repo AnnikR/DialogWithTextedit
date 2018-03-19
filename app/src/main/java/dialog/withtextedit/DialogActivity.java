@@ -24,6 +24,7 @@ public class DialogActivity extends AppCompatActivity implements NumpadDialogFra
     }
     public void onDialogNegativeClick(android.app.DialogFragment dialog){
         Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+        //return false;
     }
 
     public void onDialogNumberClickCorrect(android.app.DialogFragment dialog)

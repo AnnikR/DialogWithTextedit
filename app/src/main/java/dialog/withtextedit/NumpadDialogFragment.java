@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,7 +82,7 @@ public class NumpadDialogFragment extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 userAnswer[0] = Integer.parseInt(selectedItem);
-                typedAnswerText.setText("Vastaus : " + userAnswer[0]);
+                typedAnswerText.setText("Vastaus : %d" + userAnswer[0]);
             }
         });
         layout.addView(numberGridView);
