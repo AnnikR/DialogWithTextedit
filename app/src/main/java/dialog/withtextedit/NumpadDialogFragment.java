@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,9 @@ public class NumpadDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        final LinearLayout layout = new LinearLayout(getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+
         //määritellään kysymyksiä varten kaksi arpoutuvaa numeroa
         Random r = new Random();
         int number1 = r.nextInt(6-1)+ 1;
@@ -56,9 +61,6 @@ public class NumpadDialogFragment extends DialogFragment {
         final Integer correctAnswer = number1 + number2;
 
         final Integer[] userAnswer = new Integer[1];
-
-        final LinearLayout layout = new LinearLayout(getActivity());
-        layout.setOrientation(LinearLayout.VERTICAL);
 
         //uusi AlertDialog
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -82,7 +84,7 @@ public class NumpadDialogFragment extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 userAnswer[0] = Integer.parseInt(selectedItem);
-                typedAnswerText.setText("Vastaus : %d" + userAnswer[0]);
+                typedAnswerText.setText("Vastaus :" + userAnswer[0]);
             }
         });
         layout.addView(numberGridView);
@@ -95,6 +97,7 @@ public class NumpadDialogFragment extends DialogFragment {
                         if(userAnswer[0] == correctAnswer)
                         {
                             AnswerListener.onDialogNumberClickCorrect(NumpadDialogFragment.this);
+
                         }
                         else
                         {
@@ -110,6 +113,14 @@ public class NumpadDialogFragment extends DialogFragment {
                         AnswerListener.onDialogNegativeClick(NumpadDialogFragment.this);
                     }
                 });
+        dialogBuilder.setNeutralButton("<-",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //Erase button clicked
+
+            }
+        });
 
         //määritä AlertDialogin otsikoksi kysymys, ja otsikon alle näkymäksi numeroruudukko.
         dialogBuilder.setTitle(questionOnScreen);

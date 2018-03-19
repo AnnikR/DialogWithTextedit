@@ -10,6 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Nappi dialogin testaamista varten"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,9 +19,23 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:text="Open dialog"
-        android:onClick="startDialog_clicked"/>
+        android:layout_height="118dp"
+        android:onClick="startDialog_clicked"
+        android:text="Open dialog" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Tulos :" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="True/False"/>
 
 
 </LinearLayout>
