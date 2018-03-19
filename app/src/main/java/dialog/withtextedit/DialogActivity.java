@@ -19,12 +19,13 @@ public class DialogActivity extends AppCompatActivity implements NumpadDialogFra
         dialog.show(getFragmentManager(), "AnswerDia");
     }
 
-    //    public void onDialogPositiveClick(android.app.DialogFragment dialog){
-//        Toast.makeText(getBaseContext(), "OK clicked", Toast.LENGTH_SHORT).show();
-//    }
-//    public void onDialogNegativeClick(android.app.DialogFragment dialog){
-//        Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
-//    }
+    public void onDialogPositiveClick(android.app.DialogFragment dialog){
+        Toast.makeText(getBaseContext(), "OK clicked", Toast.LENGTH_SHORT).show();
+    }
+    public void onDialogNegativeClick(android.app.DialogFragment dialog){
+        Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+    }
+
     public void onDialogNumberClickCorrect(android.app.DialogFragment dialog)
     {
         Toast.makeText(getBaseContext(), "Oikein!", Toast.LENGTH_SHORT).show();
