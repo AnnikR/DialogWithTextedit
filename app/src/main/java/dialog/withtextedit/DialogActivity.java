@@ -3,14 +3,17 @@ package dialog.withtextedit;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DialogActivity extends AppCompatActivity implements NumpadDialogFragment.ChoiceListener{
 
+    TextView textViewFalseTrue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
+        textViewFalseTrue = findViewById(R.id.textView2);
     }
 
     protected void startDialog_clicked(View v)
@@ -19,23 +22,15 @@ public class DialogActivity extends AppCompatActivity implements NumpadDialogFra
         dialog.show(getFragmentManager(), "AnswerDia");
     }
 
-    public void onDialogPositiveClick(android.app.DialogFragment dialog){
-        Toast.makeText(getBaseContext(), "OK clicked", Toast.LENGTH_SHORT).show();
-    }
-    public void onDialogNegativeClick(android.app.DialogFragment dialog){
-        Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
-        //return false;
-    }
-
     public void onDialogNumberClickCorrect(android.app.DialogFragment dialog)
     {
         Toast.makeText(getBaseContext(), "Oikein!", Toast.LENGTH_SHORT).show();
-        //return true;
+        textViewFalseTrue.setText("True");
     }
 
     public void onDialogNumberClickWrong(android.app.DialogFragment dialog)
     {
         Toast.makeText(getBaseContext(), "Väärin!", Toast.LENGTH_SHORT).show();
-        //return false;
+        textViewFalseTrue.setText("False");
     }
 }

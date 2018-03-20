@@ -30,9 +30,6 @@ public class NumpadDialogFragment extends DialogFragment {
     ChoiceListener AnswerListener;
 
     public interface ChoiceListener {
-//        void onDialogPositiveClick(DialogFragment dialog);
-        void onDialogNegativeClick(DialogFragment dialog);
-
         void onDialogNumberClickCorrect(DialogFragment dialog);
         void onDialogNumberClickWrong(DialogFragment dialog);
     }
@@ -49,27 +46,23 @@ public class NumpadDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final LinearLayout layout = new LinearLayout(getActivity());
-        layout.setOrientation(LinearLayout.VERTICAL);
+        //uusi AlertDialog
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 
         //määritellään kysymyksiä varten kaksi arpoutuvaa numeroa
         Random r = new Random();
         int number1 = r.nextInt(6-1)+ 1;
         int number2 = r.nextInt(5-1)+ 1;
 
+        //määritellään kysymys (questionOnScreen), oikea vastaus (correctAnswer) ja käyttäjän syöttämä vastaus (userAswer)
         String questionOnScreen = "Laske: " + String.valueOf(number1) + " + " + String.valueOf(number2);
         final Integer correctAnswer = number1 + number2;
-
-        final Integer[] userAnswer = new Integer[1];
-
-        //uusi AlertDialog
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        final int[] userAnswer = new int[1];
 
         //TextEdit vastauksen näyttämistä varten
         final EditText typedAnswerText = new EditText(getActivity());
-        typedAnswerText.setHint("Vastaus: ");
+        typedAnswerText.setText("Vastaus: ");
         typedAnswerText.setInputType(InputType.TYPE_NULL);
-        layout.addView(typedAnswerText);
 
         //määritellään GridViewiin numerot 1-9 kolmen riveihin
         final GridView numberGridView = new GridView(getActivity());
@@ -84,10 +77,11 @@ public class NumpadDialogFragment extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 userAnswer[0] = Integer.parseInt(selectedItem);
-                typedAnswerText.setText("Vastaus :" + userAnswer[0]);
+                typedAnswerText.setText("Vastaus: " + userAnswer[0]);
+//                userAnswer.add(Integer.parseInt(selectedItem));
+
             }
         });
-        layout.addView(numberGridView);
 
         dialogBuilder.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
@@ -95,12 +89,15 @@ public class NumpadDialogFragment extends DialogFragment {
                         //OK button clicked
 
                         if(userAnswer[0] == correctAnswer)
+//                        if(userAnswer.get(0) == correctAnswer)
                         {
+                            //vastaus oikein
                             AnswerListener.onDialogNumberClickCorrect(NumpadDialogFragment.this);
 
                         }
                         else
                         {
+                            //vastaus väärin
                             AnswerListener.onDialogNumberClickWrong(NumpadDialogFragment.this);
                         }
                     }
@@ -110,17 +107,23 @@ public class NumpadDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         //Cancel button clicked
 
-                        AnswerListener.onDialogNegativeClick(NumpadDialogFragment.this);
+                        //"väärä" vastaus eli ei vastausta ollenkaan
+                        AnswerListener.onDialogNumberClickWrong(NumpadDialogFragment.this);
                     }
                 });
-        dialogBuilder.setNeutralButton("<-",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        //Erase button clicked
-
-            }
-        });
+//        dialogBuilder.setNeutralButton("<-",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//
+//                        //Erase button clicked
+//
+//            }
+//        });
+        //lisätään EditText ja GridView LinearLayoutiin.
+        final LinearLayout layout = new LinearLayout(getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(typedAnswerText);
+        layout.addView(numberGridView);
 
         //määritä AlertDialogin otsikoksi kysymys, ja otsikon alle näkymäksi numeroruudukko.
         dialogBuilder.setTitle(questionOnScreen);
